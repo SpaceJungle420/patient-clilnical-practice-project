@@ -2,8 +2,6 @@ package com.example.clinicals.clinicalsapi.model;
 
 import java.sql.Timestamp;
 
-import org.hibernate.annotations.ManyToAny;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
