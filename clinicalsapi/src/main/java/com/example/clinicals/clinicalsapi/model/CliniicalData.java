@@ -2,8 +2,13 @@ package com.example.clinicals.clinicalsapi.model;
 
 import java.sql.Timestamp;
 
+import org.hibernate.annotations.ManyToAny;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class CliniicalData {
@@ -12,6 +17,10 @@ public class CliniicalData {
     private String componentName;
     private String componentValue;
     private Timestamp measureDateTime;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "patient_id", nullable = false)
+    private Patient patient;
 
     public int getId() {
         return id;
