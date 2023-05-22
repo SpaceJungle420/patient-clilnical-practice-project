@@ -22,7 +22,7 @@ public class PatientController {
         this.repository = repository;
     }
 
-    @RequestMapping(value = "patients", method = RequestMethod.GET)
+    @RequestMapping(value = "/patients", method = RequestMethod.GET)
     public List<Patient> getPatients() {
         return repository.findAll();
     }
