@@ -9,7 +9,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 @Entity
-public class CliniicalData {
+public class ClinicalData {
     @Id
     private int id;
     private String componentName;
