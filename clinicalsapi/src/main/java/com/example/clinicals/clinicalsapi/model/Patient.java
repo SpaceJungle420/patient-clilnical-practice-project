@@ -27,6 +27,14 @@ public class Patient {
         return id;
     }
 
+    public List<ClinicalData> getClinicalData() {
+        return clinicalData;
+    }
+
+    public void setClinicalData(List<ClinicalData> clinicalData) {
+        this.clinicalData = clinicalData;
+    }
+
     public void setId(int id) {
         this.id = id;
     }

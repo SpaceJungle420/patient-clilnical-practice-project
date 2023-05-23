@@ -1,5 +1,6 @@
 package com.example.clinicals.clinicalsapi.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.clinicals.clinicalsapi.model.ClinicalData;
 import com.example.clinicals.clinicalsapi.model.Patient;
 import com.example.clinicals.clinicalsapi.repos.PatientRepository;
 
@@ -36,5 +38,16 @@ public class PatientController {
     @RequestMapping(value = "/patients", method = RequestMethod.POST)
     public Patient savePatient(@RequestBody Patient patient) {
         return repository.save(patient);
+    }
+
+    @RequestMapping(value = "/patients/analyze/{id}", method = RequestMethod.GET)
+    public Patient analyze(@PathVariable("id") int id) {
+        Patient patient = repository.findById(id).get();
+        List<ClinicalData> clinicalData = patient.getClinicalData();
+        ArrayList<ClinicalData> duplicateClinicalData = new ArrayList<>(clinicalData);
+        for (ClinicalData eachEntry : duplicateClinicalData) {
+
+        }
+        return null;
     }
 }
