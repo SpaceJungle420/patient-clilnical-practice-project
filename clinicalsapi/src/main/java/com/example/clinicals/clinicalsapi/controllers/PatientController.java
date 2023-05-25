@@ -1,7 +1,9 @@
 package com.example.clinicals.clinicalsapi.controllers;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +21,7 @@ import com.example.clinicals.clinicalsapi.repos.PatientRepository;
 public class PatientController {
 
     private PatientRepository repository;
+    Map<String, String> filters = new HashMap<>();
 
     @Autowired
     PatientController(PatientRepository repository) {
@@ -49,6 +52,13 @@ public class PatientController {
         for (ClinicalData eachEntry : duplicateClinicalData) {
             if (eachEntry.getComponentName().equals("hw")) {
                 String[] heightAndWeight = eachEntry.getComponentValue().split("/");
+
+                if (filters.containsKey(eachEntry.getComponentName())) {
+                    clinicalData.remove(eachEntry);
+                    continue;
+                } else {
+                    filters.put(eachEntry.getComponentName(), null);
+                }
 
                 if (heightAndWeight != null && heightAndWeight.length > 1) {
                     float heightInMeters = Float.parseFloat(heightAndWeight[0]) * 0.4536F;
