@@ -52,7 +52,6 @@ public class PatientController {
         for (ClinicalData eachEntry : duplicateClinicalData) {
             if (eachEntry.getComponentName().equals("hw")) {
                 String[] heightAndWeight = eachEntry.getComponentValue().split("/");
-
                 if (filters.containsKey(eachEntry.getComponentName())) {
                     clinicalData.remove(eachEntry);
                     continue;
@@ -60,16 +59,19 @@ public class PatientController {
                     filters.put(eachEntry.getComponentName(), null);
                 }
 
-                if (heightAndWeight != null && heightAndWeight.length > 1) {
-                    float heightInMeters = Float.parseFloat(heightAndWeight[0]) * 0.4536F;
-                    float bmi = Float.parseFloat(heightAndWeight[1]) / (heightInMeters * heightInMeters);
+                if (eachEntry.getComponentName().equals("hw")) {
+                    if (heightAndWeight != null && heightAndWeight.length > 1) {
+                        float heightInMeters = Float.parseFloat(heightAndWeight[0]) * 0.4536F;
+                        float bmi = Float.parseFloat(heightAndWeight[1]) / (heightInMeters * heightInMeters);
 
-                    ClinicalData bmiData = new ClinicalData();
-                    bmiData.setComponentValue(Float.toString(bmi));
-                    clinicalData.add(bmiData);
+                        ClinicalData bmiData = new ClinicalData();
+                        bmiData.setComponentValue(Float.toString(bmi));
+                        clinicalData.add(bmiData);
+                    }
                 }
             }
         }
+        filters.clear();
         return patient;
     }
 }
