@@ -1,6 +1,7 @@
 package com.example.clinicals.clinicalsapi.model;
 
 import java.sql.Timestamp;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
