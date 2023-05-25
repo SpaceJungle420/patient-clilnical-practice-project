@@ -45,9 +45,21 @@ public class PatientController {
         Patient patient = repository.findById(id).get();
         List<ClinicalData> clinicalData = patient.getClinicalData();
         ArrayList<ClinicalData> duplicateClinicalData = new ArrayList<>(clinicalData);
-        for (ClinicalData eachEntry : duplicateClinicalData) {
 
+        for (ClinicalData eachEntry : duplicateClinicalData) {
+            if (eachEntry.getComponentName().equals("hw")) {
+                String[] heightAndWeight = eachEntry.getComponentValue().split("/");
+
+                if (heightAndWeight != null && heightAndWeight.length > 1) {
+                    float heightInMeters = Float.parseFloat(heightAndWeight[0]) * 0.4536F;
+                    float bmi = Float.parseFloat(heightAndWeight[1]) / (heightInMeters * heightInMeters);
+
+                    ClinicalData bmiData = new ClinicalData();
+                    bmiData.setComponentValue(Float.toString(bmi));
+                    clinicalData.add(bmiData);
+                }
+            }
         }
-        return null;
+        return patient;
     }
 }
