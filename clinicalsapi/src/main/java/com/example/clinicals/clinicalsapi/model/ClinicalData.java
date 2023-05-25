@@ -1,7 +1,8 @@
 package com.example.clinicals.clinicalsapi.model;
 
-import java.sql.Timestamp;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import java.sql.Timestamp;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -20,7 +21,7 @@ public class ClinicalData {
     private int id;
     private String componentName;
     private String componentValue;
-    private Timestamp measureDateTime;
+    private Timestamp measuredDateTime;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "patient_id", nullable = false)
@@ -60,10 +61,10 @@ public class ClinicalData {
     }
 
     public Timestamp getMeasureDateTime() {
-        return measureDateTime;
+        return measuredDateTime;
     }
 
     public void setMeasureDateTime(Timestamp measureDateTime) {
-        this.measureDateTime = measureDateTime;
+        this.measuredDateTime = measureDateTime;
     }
 }
