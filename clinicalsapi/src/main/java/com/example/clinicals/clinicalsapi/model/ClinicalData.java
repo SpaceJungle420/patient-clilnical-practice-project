@@ -23,6 +23,7 @@ public class ClinicalData {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "patient_id", nullable = false)
+    @JsonIgnore
     private Patient patient;
 
     public Patient getPatient() {
