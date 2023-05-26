@@ -7,7 +7,14 @@ function Home() {
   const [patientData, setPatientData] = useState([]);
   const [isLoading, setLoading] = useState(true);
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    axios
+      .get("http://localhost:8080/clinicalservices/api/patients")
+      .then((res) => {
+        setPatientData(res.data);
+        setLoading(false);
+      });
+  }, []);
 
   return (
     <div>
