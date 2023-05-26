@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +21,7 @@ import com.example.clinicals.clinicalsapi.util.BMICalculator;
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin
 public class PatientController {
 
     private PatientRepository repository;
