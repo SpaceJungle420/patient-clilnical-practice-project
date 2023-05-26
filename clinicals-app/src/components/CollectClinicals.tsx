@@ -18,7 +18,14 @@ function CollectClinicals() {
 
   const [isLoading, setLoading] = useState(true);
 
-  useEffect(() => {});
+  useEffect(() => {
+    axios
+      .get("http://localhost:8080/clinicalservices/api/patients/" + patientId)
+      .then((res) => {
+        setPatientData(res.data);
+        setLoading(false);
+      });
+  });
 
   const handleSubmit = (event: any) => {};
 
