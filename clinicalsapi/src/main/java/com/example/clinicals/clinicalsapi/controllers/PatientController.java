@@ -16,6 +16,8 @@ import com.example.clinicals.clinicalsapi.model.ClinicalData;
 import com.example.clinicals.clinicalsapi.model.Patient;
 import com.example.clinicals.clinicalsapi.repos.PatientRepository;
 
+import com.example.clinicals.clinicalsapi.util.BMICalculator;
+
 @RestController
 @RequestMapping("/api")
 public class PatientController {
@@ -48,28 +50,16 @@ public class PatientController {
         Patient patient = repository.findById(id).get();
         List<ClinicalData> clinicalData = patient.getClinicalData();
         ArrayList<ClinicalData> duplicateClinicalData = new ArrayList<>(clinicalData);
-
         for (ClinicalData eachEntry : duplicateClinicalData) {
-            if (eachEntry.getComponentName().equals("hw")) {
-                String[] heightAndWeight = eachEntry.getComponentValue().split("/");
-                if (filters.containsKey(eachEntry.getComponentName())) {
-                    clinicalData.remove(eachEntry);
-                    continue;
-                } else {
-                    filters.put(eachEntry.getComponentName(), null);
-                }
 
-                if (eachEntry.getComponentName().equals("hw")) {
-                    if (heightAndWeight != null && heightAndWeight.length > 1) {
-                        float heightInMeters = Float.parseFloat(heightAndWeight[0]) * 0.4536F;
-                        float bmi = Float.parseFloat(heightAndWeight[1]) / (heightInMeters * heightInMeters);
-
-                        ClinicalData bmiData = new ClinicalData();
-                        bmiData.setComponentValue(Float.toString(bmi));
-                        clinicalData.add(bmiData);
-                    }
-                }
+            if (filters.containsKey(eachEntry.getComponentName())) {
+                clinicalData.remove(eachEntry);
+                continue;
+            } else {
+                filters.put(eachEntry.getComponentName(), null);
             }
+
+            BMICalculator.calculateBMI(clinicalData, eachEntry);
         }
         filters.clear();
         return patient;

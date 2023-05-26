@@ -1,7 +1,7 @@
 package com.example.clinicals.clinicalsapi.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +15,8 @@ import com.example.clinicals.clinicalsapi.model.ClinicalData;
 import com.example.clinicals.clinicalsapi.model.Patient;
 import com.example.clinicals.clinicalsapi.repos.ClinicalDataRepository;
 import com.example.clinicals.clinicalsapi.repos.PatientRepository;
+
+import com.example.clinicals.clinicalsapi.util.BMICalculator;
 
 @RestController
 @RequestMapping("/api")
@@ -39,10 +41,20 @@ public class ClinicalDataController {
     }
 
     @RequestMapping(value = "/clinicals/{patientId}/{componentName}", method = RequestMethod.POST)
-    public List<ClinicalData> getClinicalDate(@PathVariable("patientId") int patientId,
+    public List<ClinicalData> getClinicalDate(
+            @PathVariable("patientId") int patientId,
             @PathVariable("componentName") String componentName) {
+
+        if (componentName.equals("bmi")) {
+            componentName = "hw";
+        }
         List<ClinicalData> clinicalData = clinicalDataRepository
                 .findByPatientIdAndComponentNameOrderByMeasuredDateTime(patientId, componentName);
-        return null;
+
+        ArrayList<ClinicalData> duplicateClinicalData = new ArrayList<>(clinicalData);
+        for (ClinicalData eachEntry : duplicateClinicalData) {
+            BMICalculator.calculateBMI(clinicalData, eachEntry);
+        }
+        return clinicalData;
     }
 }
