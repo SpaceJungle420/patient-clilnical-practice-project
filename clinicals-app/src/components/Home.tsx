@@ -32,6 +32,7 @@ function Home() {
       <br />
       <Link to={"/addPatient"}>
         {/* <font size="5">Register Patient</font> */}
+        Register
       </Link>
     </div>
   );
