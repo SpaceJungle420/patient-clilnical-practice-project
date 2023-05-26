@@ -13,7 +13,17 @@ function AnalyzeData() {
   const { patientId } = useParams();
   const [isLoading, setLoading] = useState(true);
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    axios
+      .get(
+        "http://localhost:8080/clinicalservices/api/patients/analyze/" +
+          patientId
+      )
+      .then((res) => {
+        setData(res.data);
+        setLoading(false);
+      });
+  }, []);
 
   return (
     <div>
