@@ -40,7 +40,7 @@ public class ClinicalDataController {
         return clinicalDataRepository.save(clinicalData);
     }
 
-    @RequestMapping(value = "/clinicals/{patientId}/{componentName}", method = RequestMethod.POST)
+    @RequestMapping(value = "/clinicals/{patientId}/{componentName}", method = RequestMethod.GET)
     public List<ClinicalData> getClinicalDate(
             @PathVariable("patientId") int patientId,
             @PathVariable("componentName") String componentName) {
