@@ -11,7 +11,20 @@ function AddPatient() {
   const [lastName, setLastName] = useState("");
   const [age, setAge] = useState("");
 
-  const handleSubmit = (event: any) => {};
+  const handleSubmit = (event: any) => {
+    const data = {
+      firstName: firstName,
+      lastName: lastName,
+      age: age,
+    };
+
+    axios
+      .post("http://localhost:8080/clinicalservices/api/patients", data)
+      .then((res) => {
+        toast("Patient added succefully");
+        event.preventDefault();
+      });
+  };
 
   return (
     <div className="container">
