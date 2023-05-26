@@ -27,7 +27,20 @@ function CollectClinicals() {
       });
   });
 
-  const handleSubmit = (event: any) => {};
+  const handleSubmit = (event: any) => {
+    event.preventDefault();
+    const data = {
+      patientId: patientId,
+      componentName: componentName,
+      componentValue: componentValue,
+    };
+
+    axios
+      .post("http://localhost:8080/clinicalservices/api/clinicals", data)
+      .then((res) => {
+        toast("Patient added successfully");
+      });
+  };
 
   return (
     <div>
