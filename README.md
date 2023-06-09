@@ -1,2 +1,2 @@
 # patient-clilnical-project
-- from udemy lessons
+- from udemy lessons practice project
